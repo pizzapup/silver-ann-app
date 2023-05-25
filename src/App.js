@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import {lazy, Suspense} from "react";
+import {Route, Routes} from "react-router-dom";
+import Layout from "./routes/Layout";
+import "./styles/global.css";
+import "./styles/styles.scss";
+const Home = lazy(() => import("./routes/Home"));
+const About = lazy(() => import("./routes/About"));
+export const pages = [
+  {to: "/home", title: "Home"},
+  {to: "/about", title: "About"},
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            // path="home"
+            element={
+              <Suspense fallback={<>...</>}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="home"
+            element={
+              <Suspense fallback={<>...</>}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="about"
+            element={
+              <Suspense fallback={<>...</>}>
+                <About />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="*"
+            element={<p> yikes - there's nothing at this url. try again ? </p>}
+          />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

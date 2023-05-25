@@ -1,0 +1,30 @@
+.navbar {
+  background-image: url(../assets/images/bg-tan3.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: black;
+  a {
+    color: black;
+  }
+}
+#pink {
+  &::before {
+    content: "";
+    background: linear-gradient(
+      135deg,
+      rgba(219, 188, 246, 1) 0%,
+      rgba(237, 215, 252, 0.91) 24%,
+      rgba(238, 223, 225, 0.8) 51%,
+      rgba(238, 226, 214, 0.84) 62%,
+      rgba(211, 226, 241, 0.87) 69%,
+      rgba(211, 226, 241, 1) 100%
+    );
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

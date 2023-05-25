@@ -1,0 +1,44 @@
+body {
+  --white: #ffffff;
+  --tan: #f6f0e1;
+  --black: #201e1b;
+  --darkgreen: #324934;
+  --yellow: #fccd15;
+  --orange: #fd6036;
+  /* CSS HEX */
+  --antique-white: #f1e6d6ff;
+  --jet: #333333ff;
+  --cinnabar: #e55c3fff;
+  --xanthous: #fbc667ff;
+  --non-photo-blue: #a0d6dcff;
+  --emerald: #5eca85ff;
+  --fairy-tale: #e8c1c9ff;
+  --african-violet: #9184b1ff;
+  --rainbow-gradient: linear-gradient(
+    135deg,
+    rgba(219, 188, 246, 1) 0%,
+    rgba(237, 215, 252, 0.91) 24%,
+    rgba(238, 223, 225, 0.8) 51%,
+    rgba(238, 226, 214, 0.84) 62%,
+    rgba(211, 226, 241, 0.87) 69%,
+    rgba(211, 226, 241, 1) 100%
+  );
+  --rainbow-gradient2: linear-gradient(
+    135deg,
+    hsl(272, 76%, 85%) 0%,
+    hsl(276, 86%, 92%) 24%,
+    hsl(352, 31%, 90%) 51%,
+    hsl(30, 41%, 89%) 62%,
+    hsl(210, 52%, 89%) 69%,
+    hsl(210, 52%, 89%) 100%
+  );
+}
+body {
+  background-color: #eae3d8;
+  background-image: url(../assets/images/bg-tan3.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  font-family: "Mukta Mahee", sans-serif;
+}
