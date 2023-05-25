@@ -68,14 +68,7 @@ const Timeline = () => {
           }}
         >
           {items.map((data, idx) => {
-            return (
-              <TimelineItem
-                className="tl-item"
-                data={data}
-                idx={idx}
-                key={`${data.title}-${idx}`}
-              />
-            );
+            return <TimelineItem data={data} idx={idx} />;
           })}
 
           <div style={{clear: "both"}}></div>

@@ -5,7 +5,6 @@ import {
   TimelineSeparator,
 } from "@mui/lab";
 import TimelineCard from "./TimelineCard";
-import {Typography} from "@mui/material";
 
 export default function TimelineItem({data, idx}) {
   return (
@@ -13,7 +12,7 @@ export default function TimelineItem({data, idx}) {
       <TimelineSeparator>
         <TimelineDot>{data.year}</TimelineDot>
         <TimelineConnector />
-        <Typography variant="caption">{data.date}</Typography>
+        {/* <Typography variant="caption">{data.date}</Typography> */}
       </TimelineSeparator>
       <TimelineCard data={data} idx={idx} />
     </MuiTimelineItem>

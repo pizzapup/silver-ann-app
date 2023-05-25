@@ -1,17 +1,24 @@
+import {Box} from "@mui/material";
 import LogoArtista from "../../assets/images/LogoArtista/LogoArtista";
-import TitlebarBelowMasonryImageList from "../Gallery/Gallery";
 
 export default function Hero() {
   return (
     <>
-      <div className="hero">
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <div>SAT JUNE 24TH</div>
-        <div className="hero-logo">
+        <Box sx={{minWidth: "300px"}}>
           <LogoArtista />
-        </div>
+        </Box>
         <div>FROM 3PM TIL 10PM</div>
-      </div>
-      <TitlebarBelowMasonryImageList />
+      </Box>
     </>
   );
 }

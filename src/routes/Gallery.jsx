@@ -1,10 +1,8 @@
 import TitlebarBelowMasonryImageList from "../components/Gallery/TitlebarBelowMasonryImageList.jsx";
-import Hero from "../components/Hero/Hero";
 
-export default function Home() {
+export default function Gallery() {
   return (
     <>
-      <Hero />
       <TitlebarBelowMasonryImageList />
     </>
   );

@@ -29,17 +29,14 @@ export const items = [
       alt: "placeholder lakehouse image",
     },
   },
-  //   {
-  //     year: "1998",
-  //     date: "1998",
-  //     title: "Wedding",
-  //     text: "  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.",
-  //     accordian: {
-  //       numItems: 2,
-  //       items: [
-  //         {title: "Item One", text: "text for item one"},
-  //         {title: "Item Two", text: "text for item two"},
-  //       ],
-  //     },
-  //   },
+  {
+    year: "2023",
+    date: "JUN-24TH",
+    title: "Silver Anniversary",
+    text: "Woohoo! 25 Years",
+    image: {
+      src: "https://source.unsplash.com/random/248x500/?celebrate",
+      alt: "placeholder celebrate image",
+    },
+  },
 ];

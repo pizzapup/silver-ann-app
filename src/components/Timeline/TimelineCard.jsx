@@ -1,25 +1,7 @@
 import {TimelineContent} from "@mui/lab";
-import {
-  Button,
-  CardActionArea,
-  CardActions,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-} from "@mui/material";
+import {Card, CardContent, CardMedia, Typography, Box} from "@mui/material";
 
-const defaultProps = {
-  title: "card title",
-  text: "card text goes here",
-  button: {text: "button text", btnProps: {onClick: ""}},
-  image: {
-    src: "https://source.unsplash.com/random/248x500/?wedding",
-    alt: "placeholder wedding image",
-  },
-};
-export default function TimelineCard({btn = "none", data = defaultProps, idx}) {
+export default function TimelineCard({btn = "none", data, idx}) {
   return (
     <TimelineContent
       className={`content animate ${
@@ -42,8 +24,6 @@ export default function TimelineCard({btn = "none", data = defaultProps, idx}) {
           />
         )}
         <CardContent>
-          {/* {data.title && <Typography variant="h6">{data.title}</Typography>} */}
-
           <Box
             sx={{
               display: "flex",
@@ -51,9 +31,6 @@ export default function TimelineCard({btn = "none", data = defaultProps, idx}) {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="overline" display="block">
-              {data.date}
-            </Typography>
             <Typography variant="h6">{data.title}</Typography>
             <Box>{data.date}</Box>
           </Box>
