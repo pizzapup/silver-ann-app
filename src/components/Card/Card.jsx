@@ -5,6 +5,7 @@ import {
   Card as CardComp,
   CardContent,
   CardMedia,
+  Typography,
 } from "@mui/material";
 
 const defaultProps = {
@@ -16,22 +17,32 @@ const defaultProps = {
     alt: "placeholder wedding image",
   },
 };
-export default function Card({data = defaultProps}) {
+export default function Card({btn = "none", data = defaultProps}) {
+  const Btn = btn;
   return (
     <CardComp sx={{maxWidth: 345}}>
       <CardActionArea>
+        <Typography gutterBottom variant="h5" component="div">
+          Lizard
+        </Typography>
+
         <CardMedia
           component="img"
           height="140"
           image={data.image.src}
           alt={data.image.alt}
         />
-        <CardContent>{data.text}</CardContent>
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {data.text}
+          </Typography>
+        </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" {...data.button.btnProps}>
+        {/* <Button size="small" color="primary" onClick={() => alert("grrr")}>
           {data.button.text}
-        </Button>
+        </Button> */}
+        {btn !== "none" && btn}
       </CardActions>
     </CardComp>
   );

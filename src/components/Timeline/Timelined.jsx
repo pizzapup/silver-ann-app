@@ -1,69 +1,70 @@
 import React, {useEffect} from "react";
-
 import "./Timeline.css";
-
 import {gsap} from "gsap";
-
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import Card from "../Card/Card";
+
+const items = [
+  {
+    title: "Wedding",
+    description: "",
+    date: "1998",
+    content: <Card />,
+  },
+  {
+    title: "Title 2",
+    description: "Desc 2",
+    date: "DD MONTH 1999",
+    content: <Card />,
+  },
+  {
+    title: "Title 1",
+    description: "Desc 1",
+    date: "DD MONTH 2000",
+    content: <Card />,
+  },
+  {
+    title: "Title 2",
+    description: "Desc 2",
+    date: "DD MONTH 20001",
+    content: <Card />,
+  },
+  {
+    title: "Title 1",
+    description: "Desc 1",
+    date: "DD MONTH 2002",
+    content: <Card />,
+  },
+  {
+    title: "Title 2",
+    description: "Desc 2",
+    date: "DD MONTH 2003",
+    content: <Card />,
+  },
+];
 
 const Timeline = (props) => {
-  //   const {items} = data;
-  const items = [
-    {
-      title: "Title 1",
-      description: "Desc 1",
-      date: "DD MONTH 1998",
-    },
-    {title: "Title 2", description: "Desc 2", date: "DD MONTH 1999"},
-    {
-      title: "Title 1",
-      description: "Desc 1",
-      date: "DD MONTH 2000",
-    },
-    {title: "Title 2", description: "Desc 2", date: "DD MONTH 20001"},
-    {
-      title: "Title 1",
-      description: "Desc 1",
-      date: "DD MONTH 2002",
-    },
-    {title: "Title 2", description: "Desc 2", date: "DD MONTH 2003"},
-  ];
-
   const animateFromTo = (elem, direction) => {
     const offset = 1000;
-
     let x = 0;
-
     let y = direction * offset;
-
     direction = direction | 1;
-
     if (elem.classList.contains("slide_from_left")) {
       x = -offset;
-
       y = 0;
     } else if (elem.classList.contains("slide_from_right")) {
       x = offset;
-
       y = 0;
     }
-
     gsap.fromTo(
       elem,
-
       {x: x, y: y, autoAlpha: 0},
-
       {
         duration: 1.25,
-
         x: 0,
-
         y: 0,
-
         autoAlpha: 1,
-
         ease: "expo",
-
         overwrite: "auto",
       }
     );
@@ -75,21 +76,16 @@ const Timeline = (props) => {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
     gsap.utils.toArray(".animate").forEach(function (elem) {
       hide(elem);
-
       ScrollTrigger.create({
         trigger: elem,
-
         onEnter: function () {
           animateFromTo(elem);
         },
-
         onEnterBack: function () {
           animateFromTo(elem, -1);
         },
-
         onLeave: function () {
           hide(elem);
         },
@@ -101,33 +97,33 @@ const Timeline = (props) => {
     <div>
       <div className="timeline">
         <ul>
-          {items.map((te, idx) => {
+          {items.map((timelineItem, idx) => {
             return (
-              <li key={`${te.title}_${te.date}`}>
-                <div className="content">
-                  <h3
-                    className={`animate ${
-                      idx % 2 === 0 ? "slide_from_left" : "slide_from_right"
-                    }`}
-                  >
-                    {te.title}
-                  </h3>
-
-                  <p
-                    className={`animate ${
-                      idx % 2 === 0 ? "slide_from_left" : "slide_from_right"
-                    }`}
-                  >
-                    {te.description}
-                  </p>
+              <li
+                key={`${timelineItem.title}_${timelineItem.date}`}
+                className="content"
+              >
+                <div
+                  //   className={`content animate ${
+                  //     idx % 2 === 0 ? "slide_from_left" : "slide_from_right"
+                  //   }`}
+                  className={`content animate ${
+                    idx % 2 === 0 ? "slide_from_left" : "slide_from_right"
+                  }`}
+                >
+                  {timelineItem.date}
+                  {timelineItem.content}
                 </div>
 
                 <div
-                  className={`time animate ${
-                    idx % 2 === 0 ? "slide_from_right" : "slide_from_left"
-                  }`}
+                //   className={`time animate ${
+                //     idx % 2 === 0 ? "slide_from_right" : "slide_from_left"
+                //   }`}
+                //   className={`time animate ${
+                //     idx % 2 === 0 ? "slide_from_left" : "slide_from_right"
+                //   }`}
                 >
-                  <h4>{te.date}</h4>
+                  {/* {timelineItem.date} */}
                 </div>
               </li>
             );

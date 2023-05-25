@@ -38,7 +38,7 @@ export const Navbar = (props) => {
   const drawerWidth = 240;
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{textAlign: "center"}}>
-      <Typography variant="h6" sx={{my: 2}}>
+      <Typography variant="h5" sx={{my: 2}}>
         M & E
       </Typography>
       <Divider />
@@ -77,8 +77,7 @@ export const Navbar = (props) => {
                 <MenuIcon />
               </IconButton>
               <Typography
-                variant="h6"
-                component="div"
+                variant="h5"
                 sx={{
                   flexGrow: 1,
                   color: "black",

@@ -4,6 +4,55 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import Card from "../Card/Card";
+import {Button} from "@mui/material";
+
+const data = [
+  {
+    title: "card title",
+    text: "card text goes here",
+    button: {
+      text: "button text",
+    },
+    image: {
+      src: "https://source.unsplash.com/random/248x500/?wedding",
+      alt: "placeholder wedding image",
+    },
+  },
+  {
+    title: "card title",
+    text: "card text goes here",
+    button: {
+      text: "button text",
+    },
+    image: {
+      src: "https://source.unsplash.com/random/248x500/?wedding",
+      alt: "placeholder wedding image",
+    },
+  },
+  {
+    title: "card title",
+    text: "card text goes here",
+    button: {
+      text: "button text",
+    },
+    image: {
+      src: "https://source.unsplash.com/random/248x500/?wedding",
+      alt: "placeholder wedding image",
+    },
+  },
+  {
+    title: "card title",
+    text: "card text goes here",
+    button: {
+      text: "button text",
+    },
+    image: {
+      src: "https://source.unsplash.com/random/248x500/?wedding",
+      alt: "placeholder wedding image",
+    },
+  },
+];
+
 export default function TimelineComp() {
   const TimelineItem = ({year, children}) => (
     <VerticalTimelineElement
@@ -21,27 +70,28 @@ export default function TimelineComp() {
       {children}
     </VerticalTimelineElement>
   );
+  const Btn = ({text, handleClick}) => (
+    <Button size="small" color="primary" onClick={handleClick}>
+      {text}
+    </Button>
+  );
+
   return (
     <>
       <VerticalTimeline>
-        <TimelineItem year="1998">
-          <Card />
-        </TimelineItem>
-        <TimelineItem year="1999">
-          <Card />
-        </TimelineItem>
-        <TimelineItem year="2000">
-          <Card />
-        </TimelineItem>
-        <TimelineItem year="2001">
-          <Card />
-        </TimelineItem>
-        <TimelineItem year="2002">
-          <Card />
-        </TimelineItem>
-        <TimelineItem year="2003">
-          <Card />
-        </TimelineItem>
+        {data.map((year, i) => (
+          <TimelineItem year="1998" key={`${year}-${i}`}>
+            <Card
+              data={year}
+              btn={
+                <Btn
+                  text={year.button.text}
+                  handleClick={() => alert("yay!")}
+                />
+              }
+            />
+          </TimelineItem>
+        ))}
       </VerticalTimeline>
     </>
   );
