@@ -1,153 +1,87 @@
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
-import Card from "../Card/Card";
-import {Button} from "@mui/material";
+import React, {useEffect} from "react";
+import {gsap} from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {Timeline as TimeLine, timelineItemClasses} from "@mui/lab";
+import {items} from "./data";
+import TimelineItem from "./TimelineItem";
 
-const data = [
-  {
-    title: "card title",
-    text: "card text goes here",
-    button: {
-      text: "button text",
-    },
-    image: {
-      src: "https://source.unsplash.com/random/248x500/?wedding",
-      alt: "placeholder wedding image",
-    },
-  },
-  {
-    title: "card title",
-    text: "card text goes here",
-    button: {
-      text: "button text",
-    },
-    image: {
-      src: "https://source.unsplash.com/random/248x500/?wedding",
-      alt: "placeholder wedding image",
-    },
-  },
-  {
-    title: "card title",
-    text: "card text goes here",
-    button: {
-      text: "button text",
-    },
-    image: {
-      src: "https://source.unsplash.com/random/248x500/?wedding",
-      alt: "placeholder wedding image",
-    },
-  },
-  {
-    title: "card title",
-    text: "card text goes here",
-    button: {
-      text: "button text",
-    },
-    image: {
-      src: "https://source.unsplash.com/random/248x500/?wedding",
-      alt: "placeholder wedding image",
-    },
-  },
-];
+const Timeline = () => {
+  const animateFromTo = (elem, direction) => {
+    const offset = 1000;
+    let x = 0;
+    let y = direction * offset;
+    direction = direction | 1;
+    if (elem.classList.contains("slide_from_left")) {
+      x = -offset;
+      y = 0;
+    } else if (elem.classList.contains("slide_from_right")) {
+      x = offset;
+      y = 0;
+    }
 
-export default function TimelineComp() {
-  const TimelineItem = ({year, children}) => (
-    <VerticalTimelineElement
-      // className="vertical-timeline-element--work"
-      date={year}
-      iconStyle={{
-        background: "rgb(33, 150, 243)",
-        color: "#fff",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      icon={<>{year}</>}
-    >
-      {children}
-    </VerticalTimelineElement>
-  );
-  const Btn = ({text, handleClick}) => (
-    <Button size="small" color="primary" onClick={handleClick}>
-      {text}
-    </Button>
-  );
+    gsap.fromTo(
+      elem,
+      {x: x, y: y, autoAlpha: 0},
+      {
+        duration: 1.25,
+        x: 0,
+        y: 0,
+        autoAlpha: 1,
+        ease: "expo",
+        overwrite: "auto",
+      }
+    );
+  };
+
+  const hide = (elem) => {
+    gsap.set(elem, {autoAlpha: 0});
+  };
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray(".animate").forEach(function (elem) {
+      hide(elem);
+      ScrollTrigger.create({
+        trigger: elem,
+        onEnter: function () {
+          animateFromTo(elem);
+        },
+        onEnterBack: function () {
+          animateFromTo(elem, -1);
+        },
+        onLeave: function () {
+          hide(elem);
+        },
+      });
+    });
+  }, []);
 
   return (
-    <>
-      <VerticalTimeline>
-        {data.map((year, i) => (
-          <TimelineItem year="1998" key={`${year}-${i}`}>
-            <Card
-              data={year}
-              btn={
-                <Btn
-                  text={year.button.text}
-                  handleClick={() => alert("yay!")}
-                />
-              }
-            />
-          </TimelineItem>
-        ))}
-      </VerticalTimeline>
-    </>
+    <div>
+      <div className="timeline">
+        <TimeLine
+          sx={{
+            [`& .${timelineItemClasses.root}:before`]: {
+              flex: 0,
+              padding: 0,
+            },
+          }}
+        >
+          {items.map((data, idx) => {
+            return (
+              <TimelineItem
+                className="tl-item"
+                data={data}
+                idx={idx}
+                key={`${data.title}-${idx}`}
+              />
+            );
+          })}
+
+          <div style={{clear: "both"}}></div>
+        </TimeLine>
+      </div>
+    </div>
   );
-}
-
-// import Fade from "react-reveal/Fade";
-// import Card from "../Card/Card";
-// import {
-//   Timeline,
-//   TimelineItem,
-//   TimelineSeparator,
-//   TimelineConnector,
-//   TimelineDot,
-//   TimelineContent,
-//   TimelineOppositeContent,
-//   timelineOppositeContentClasses,
-// } from "@mui/lab";
-// import {Slide, Zoom} from "react-reveal";
-// import Example from "../Reveal/Reveal";
-// import {Parallax, ParallaxProvider} from "react-scroll-parallax";
-
-// export default function TimelineComp() {
-//   const TimelineListItem = () => (
-//     <TimelineItem>
-//       <TimelineOppositeContent color="textSecondary">
-//         1998
-//       </TimelineOppositeContent>
-//       <TimelineSeparator>
-//         <TimelineDot />
-//         <TimelineConnector />
-//       </TimelineSeparator>
-//       <TimelineContent>
-//         <Parallax
-//           translateX={[100, -200, "easeOutQuint"]}
-//           // translateY={[-200, 0, "easeInQuint"]}
-//           easing="easeInQuad"
-//         >
-//           {/* <Slide left> */}
-//           <Card />
-//           {/* </Slide> */}
-//         </Parallax>
-//       </TimelineContent>
-//     </TimelineItem>
-//   );
-//   return (
-//     <Timeline
-//       sx={{
-//         [`& .${timelineOppositeContentClasses.root}`]: {
-//           flex: 0.2,
-//         },
-//       }}
-//     >
-//       <TimelineListItem />
-//       <TimelineListItem />
-//       <TimelineListItem />
-//       <TimelineListItem />
-//     </Timeline>
-//   );
-// }
+};
+export default Timeline;

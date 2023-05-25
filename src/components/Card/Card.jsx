@@ -17,18 +17,16 @@ const defaultProps = {
     alt: "placeholder wedding image",
   },
 };
-export default function Card({btn = "none", data = defaultProps}) {
-  const Btn = btn;
+export default function Card({btn = "none", data = defaultProps, sx = []}) {
   return (
-    <CardComp sx={{maxWidth: 345}}>
+    <CardComp sx={{...sx}}>
       <CardActionArea>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {data.date}
         </Typography>
-
         <CardMedia
           component="img"
-          height="140"
+          height="200px"
           image={data.image.src}
           alt={data.image.alt}
         />
