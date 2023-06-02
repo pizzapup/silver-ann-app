@@ -1,0 +1,92 @@
+@mixin flex(
+  $a: stretch,
+  $j: flex-start,
+  $d: row,
+  $w: nowrap,
+  $g: 0,
+  $c: "default"
+) {
+  display: flex;
+  align-items: $a;
+  justify-content: $j;
+  flex-direction: $d;
+  flex-wrap: $w;
+  gap: $g;
+  @if $c != "default" && {
+    align-items: $c;
+    justify-content: $c;
+  }
+}
+
+@mixin positioning(
+  $t: auto,
+  $r: auto,
+  $b: auto,
+  $l: auto,
+  $position: absolute,
+  $all: "default"
+) {
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+  position: $position;
+  @if $all != "default" {
+    top: $all;
+    right: $all;
+    bottom: $all;
+    left: $all;
+    position: $position;
+  }
+}
+@mixin heigthWidth($h: auto, $w: auto, $both: "default") {
+  height: $h;
+  width: $w;
+  @if $both != "default" {
+    height: $both;
+    width: $both;
+  }
+}
+@mixin maxHeightWidth($h: auto, $w: auto, $both: "default") {
+  max-height: $h;
+  max-width: $w;
+  @if $both != "default" {
+    max-height: $both;
+    max-width: $both;
+  }
+}
+@mixin minHeightWidth($h: auto, $w: auto, $both: "default") {
+  min-height: $h;
+  min-width: $w;
+  @if $both != "default" {
+    min-height: $both;
+    min-width: $both;
+  }
+}
+
+@mixin focus {
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    @content;
+  }
+}
+@mixin reducedMotionNoPreference {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+@mixin reducedMotionPreffered {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+@mixin fillLeftToRight($base-color: $white, $fill-color: hotpink) {
+  background: linear-gradient(to right, $fill-color 50%, $base-color 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+  &:hover {
+    background-position: left bottom;
+  }
+}

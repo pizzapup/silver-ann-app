@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "AbstractGroovy";
+  src: url("./desert-scene/aAbstractGroovy.otf");
+}
+.not-found {
+  // @include flex();
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.heading {
+  font-family: "AbstractGroovy";
+  font-size: xx-large;
+}
+.bg {
+  position: relative;
+  img {
+    width: 100vw;
+    opacity: 0;
+  }
+  .img {
+    position: absolute;
+    @include positioning($all: 0);
+    background-image: url("./desert-scene/mtnsGlow.png");
+    min-height: 250px;
+    background-position: center;
+    background-size: cover;
+  }
+  .img-behind {
+    @extend .img;
+    background-image: url("./desert-scene/bg.png");
+  }
+  .img-deer {
+    @extend .img;
+    background-image: url("./desert-scene/open.png");
+    animation-name: blinkAni;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(1);
+  }
+  .img-mtns {
+    @extend .img;
+    background-image: url("./desert-scene/mtnsGlow.png");
+  }
+}
+@keyframes blinkAni {
+  0% {
+    background-image: url("./desert-scene/open.png");
+  }
+  50% {
+    background-image: url("./desert-scene/closed.png");
+  }
+}

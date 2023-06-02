@@ -8,8 +8,8 @@ export default function TitlebarBelowMasonryImageList() {
   return (
     <Box sx={{height: "85vh", overflowY: "scroll"}}>
       <ImageList variant="masonry" cols={3} gap={8}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
+        {itemData.map((item, i) => (
+          <ImageListItem key={`${item.img}-${i}`}>
             <img
               src={`${item.img}?w=248&fit=crop&auto=format`}
               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import {pages} from "../../App";
 import {NavLink} from "react-router-dom";
+import BgImage from "../../assets/images/bg-tan3.png";
 import {
   Button,
   Divider,
@@ -49,7 +50,7 @@ export const Navbar = (props) => {
             <ListItemButton
               sx={{textAlign: "center"}}
               component={NavLink}
-              to={item.to}
+              to={`/${item.path}`}
             >
               <ListItemText primary={item.title} />
             </ListItemButton>
@@ -89,7 +90,11 @@ export const Navbar = (props) => {
               {/* NAVBAR */}
               <Box sx={{display: {xs: "none", sm: "block"}}}>
                 {pages.map((item, i) => (
-                  <Button key={`${item}-${i}`} component={NavLink} to={item.to}>
+                  <Button
+                    key={`${item}-${i}`}
+                    component={NavLink}
+                    to={`/${item.path}`}
+                  >
                     {item.title}
                   </Button>
                 ))}

@@ -1,3 +1,6 @@
-@import "./global";
-@import "./navbar";
-@import "./gallery";
+@import "./mq";
+@import "./variables";
+@import "./mixins";
+@import "../components/NotFound/notFound";
+@import "../components/Navbar/navbar";
+@import "../components/Gallery/gallery";
