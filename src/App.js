@@ -9,6 +9,7 @@ export const pages = [
   {title: "Home", path: "home", element: "Home"},
   {title: "About", path: "about", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
+  {title: "Create Post", path: "createpost", element: "CreatePost"},
 ];
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             }
           />
           {Pages}
+
           <Route
             path="*"
             element={

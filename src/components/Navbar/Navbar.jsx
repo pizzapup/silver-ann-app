@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import {pages} from "../../App";
 import {NavLink} from "react-router-dom";
-import BgImage from "../../assets/images/bg-tan3.png";
 import {
   Button,
   Divider,
@@ -28,7 +27,8 @@ export const Navbar = (props) => {
     });
     return cloneElement(children, {
       elevation: trigger ? 2 : 0,
-      id: trigger ? "pink" : "notpink",
+      id: trigger ? "scrolling" : "top",
+      // scrolling styles continued in scss
     });
   }
   const {window} = props;
@@ -67,6 +67,7 @@ export const Navbar = (props) => {
       <Box sx={{display: "flex"}}>
         <ElevationScroll {...props}>
           <AppBar component="nav" className={`navbar`}>
+            {/* .navbar styles in scss */}
             <Toolbar>
               <IconButton
                 color="inherit"

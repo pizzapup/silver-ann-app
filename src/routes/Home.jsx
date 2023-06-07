@@ -1,11 +1,11 @@
-import TitlebarBelowMasonryImageList from "../components/Gallery/TitlebarBelowMasonryImageList.jsx";
+import GalleryMasonry from "../components/Gallery/GalleryMasonry.jsx";
 import Hero from "../components/Hero/Hero";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <TitlebarBelowMasonryImageList />
+      <GalleryMasonry />
     </>
   );
 }

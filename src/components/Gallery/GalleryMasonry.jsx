@@ -4,7 +4,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 
-export default function TitlebarBelowMasonryImageList() {
+export default function GalleryMasonry() {
   return (
     <Box sx={{height: "85vh", overflowY: "scroll"}}>
       <ImageList variant="masonry" cols={3} gap={8}>

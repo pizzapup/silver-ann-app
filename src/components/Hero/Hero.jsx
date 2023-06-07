@@ -10,7 +10,7 @@ export default function Hero() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          marginTop: "10px",
         }}
       >
         <div>SAT JUNE 24TH</div>

@@ -1,25 +1,25 @@
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 
 const theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#BFCFCC",
-    },
-    secondary: {
-      main: "#B8B6F2",
-      contrastText: "#000000",
-    },
-    error: {
-      main: "#b71c1c",
-    },
-    warning: {
-      main: "#ed6c02",
-    },
-    info: {
-      main: "#0288d1",
-    },
-  },
+  // palette: {
+  //   mode: "light",
+  //   primary: {
+  //     main: "#BFCFCC",
+  //   },
+  //   secondary: {
+  //     main: "#B8B6F2",
+  //     contrastText: "#000000",
+  //   },
+  //   error: {
+  //     main: "#b71c1c",
+  //   },
+  //   warning: {
+  //     main: "#ed6c02",
+  //   },
+  //   info: {
+  //     main: "#0288d1",
+  //   },
+  // },
   typography: {
     fontFamily:
       '"Mukta Mahee", "Nunito", "Roboto", "Helvetica", "Arial", sans-serif',

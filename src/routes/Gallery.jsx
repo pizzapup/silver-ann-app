@@ -1,11 +1,9 @@
-import TitlebarBelowMasonryImageList from "../components/Gallery/TitlebarBelowMasonryImageList.jsx";
-import MsgApp from "../firebase/MsgApp.js";
+import GalleryMasonry from "../components/Gallery/GalleryMasonry.jsx";
 
 export default function Gallery() {
   return (
     <>
-      <MsgApp />
-      <TitlebarBelowMasonryImageList />
+      <GalleryMasonry />
     </>
   );
 }
