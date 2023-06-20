@@ -1,88 +1,84 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
+import {useState, useEffect} from "react";
+import {Box} from "@mui/material";
+import "react-lazy-load-image-component/src/effects/opacity.css";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../firebase/firebase";
+import GalleryImage from "./GalleryImage";
+
+export const findAll = async () => {
+  const docRefs = await getDocs(collection(db, "posts"));
+  const res = [];
+  docRefs.forEach((post) => {
+    res.push({id: post.id, ...post.data()});
+  });
+  return res;
+};
 
 export default function GalleryMasonry() {
+  const [list, setList] = useState([]);
+  const [postValues, setPostValues] = useState([]);
+  const [postId, setPostId] = useState("");
+  const [loading, setLoading] = useState([]);
+  const [enlarge, setEnlarge] = useState(false);
+  const fetchData = async () => {
+    setLoading(true);
+    const res = await findAll();
+    setList([...res]);
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const handleImgClick = (id, item) => {
+    setEnlarge(true);
+    setPostId(id);
+    setPostValues(item.values);
+  };
+
   return (
-    <Box sx={{height: "85vh", overflowY: "scroll"}}>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        {itemData.map((item, i) => (
-          <ImageListItem key={`${item.img}-${i}`}>
-            <img
-              src={`${item.img}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-            />
-            <ImageListItemBar position="below" title={item.author} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Box>
+    <>
+      {enlarge ? (
+        <GalleryImage
+          backToGallery={() => setEnlarge(false)}
+          data={postValues}
+          id={postId}
+        />
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            "&::after": {content: "''", flexGrow: "999px"},
+          }}
+        >
+          {list.map((item, i) => {
+            return (
+              <Box
+                key={`key-${item.id}`}
+                sx={{
+                  flex: "1 1 auto",
+                  height: "300px",
+                  maxWidth: "550px",
+                  position: "relative",
+                }}
+              >
+                <Box sx={{width: "50px"}}></Box>
+                <img
+                  src={item.values.image}
+                  alt=""
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "100%",
+                    verticalAlign: "middle",
+                  }}
+                  onClick={() => handleImgClick(item.id, item)}
+                />
+              </Box>
+            );
+          })}
+        </Box>
+      )}
+    </>
   );
 }
-
-const itemData = [
-  {
-    img: "https://source.unsplash.com/random/248x300/?wedding",
-    title: "Bed",
-    author: "swabdesign",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Books",
-    author: "Pavel Nekoranec",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x600/?wedding",
-    title: "Sink",
-    author: "Charles Deluvio",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Kitchen",
-    author: "Christian Mackie",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Blinds",
-    author: "Darren Richardson",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x800/?wedding",
-    title: "Chairs",
-    author: "Taylor Simpson",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Laptop",
-    author: "Ben Kolde",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Doors",
-    author: "Philipp Berndt",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x250/?wedding",
-    title: "Coffee",
-    author: "Jen P.",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Storage",
-    author: "Douglas Sheppard",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Candle",
-    author: "Fi Bell",
-  },
-  {
-    img: "https://source.unsplash.com/random/248x500/?wedding",
-    title: "Coffee table",
-    author: "Hutomo Abrianto",
-  },
-];

@@ -37,16 +37,15 @@ function App() {
             }
           />
           {Pages}
-
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<>...</>}>
-                <Error />
-              </Suspense>
-            }
-          />
         </Route>
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<>...</>}>
+              <Error />
+            </Suspense>
+          }
+        />
       </Routes>
     </>
   );

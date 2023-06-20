@@ -1,6 +1,7 @@
 import {PhotoCamera} from "@mui/icons-material";
 import {useRef, useState} from "react";
 import "./dnd.css";
+import {Box, Button, Input, InputLabel, TextField} from "@mui/material";
 
 export default function DragAndDrop({handleUpload}) {
   const [dragActive, setDragActive] = useState(false);
@@ -37,35 +38,34 @@ export default function DragAndDrop({handleUpload}) {
   };
 
   return (
-    <div
+    <Box
       id="form-file-upload"
       className="dragAndDrop"
       onDragEnter={handleDrag}
       onSubmit={(e) => e.preventDefault()}
     >
-      <label
+      <InputLabel
         id="label-file-upload"
         htmlFor="input-file-upload"
-        className={dragActive ? "drag-active" : ""}
+        sx={{height: "100%"}}
       >
-        <span className="dragAndDropLabel">
-          upload image for recipe (optional)
-        </span>
-        <div className="dragAndDropText">
-          <span>
-            (optional image upload)
-            <p>Drag and drop your image here or</p>
-          </span>
-          <button
-            className="upload-button"
-            type="button"
-            onClick={onButtonClick}
-          >
-            <PhotoCamera />
-            Click to upload from your files
-          </button>
-        </div>
-      </label>
+        <Button
+          type="button"
+          variant="outlined"
+          size="large"
+          sx={{
+            minHeight: "25vh",
+            height: "100%",
+            width: "100%",
+            "&:hover": {borderStyle: "dashed"},
+            borderStyle: dragActive ? "dashed" : "solid",
+          }}
+          onClick={onButtonClick}
+        >
+          <PhotoCamera />
+          Upload Image
+        </Button>
+      </InputLabel>
       <input
         ref={inputRef}
         type="file"
@@ -83,15 +83,6 @@ export default function DragAndDrop({handleUpload}) {
           onDrop={handleDrop}
         ></div>
       )}
-    </div>
+    </Box>
   );
 }
-export const ImageUploadMobile = ({handleUpload}) => {
-  return (
-    <label className="file-upload">
-      Upload an image (optional)
-      <input hidden accept="image/*" type="file" onChange={handleUpload} />
-      <PhotoCamera />
-    </label>
-  );
-};
