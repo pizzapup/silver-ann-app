@@ -13,9 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function UploadImage() {
   const initialValues = {
-    name: "",
-    image: "defaultImgUrl",
-    comment: "",
+    name: "anon (no name provided)",
+    image: "no image provided",
+    comment: "no comment provided",
+    title: "no title provided",
   };
   const [imgUrl, setImgUrl] = useState("");
   const [values, setValues] = useState(initialValues);
@@ -94,20 +95,27 @@ export default function UploadImage() {
             <DragAndDrop handleUpload={handleUpload} />
           </Box>
           <TextField
-            label="Favorite memory/Comment"
+            label="Title"
+            value={values.title}
+            name="title"
+            type="text"
+            helperText="Titles may also be used as alt text for photo captions."
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="What would you like to share?"
             multiline
             rows={4}
             value={values.comment}
             name="comment"
-            helperText="Enter text for your post"
             onChange={handleInputChange}
           />
           <TextField
-            label="Your Name"
+            label="Your Name (optional)"
             value={values.name}
             name="name"
             type="text"
-            helperText="Display your name with your post (optional)"
+            helperText=""
             onChange={handleInputChange}
           />
           <Button
