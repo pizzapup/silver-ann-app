@@ -1,7 +1,6 @@
 import {PhotoCamera} from "@mui/icons-material";
 import {useRef, useState} from "react";
-import "./dnd.css";
-import {Box, Button, Input, InputLabel, TextField} from "@mui/material";
+import {Box, Button, InputLabel} from "@mui/material";
 
 export default function DragAndDrop({handleUpload}) {
   const [dragActive, setDragActive] = useState(false);
@@ -38,17 +37,8 @@ export default function DragAndDrop({handleUpload}) {
   };
 
   return (
-    <Box
-      id="form-file-upload"
-      className="dragAndDrop"
-      onDragEnter={handleDrag}
-      onSubmit={(e) => e.preventDefault()}
-    >
-      <InputLabel
-        id="label-file-upload"
-        htmlFor="input-file-upload"
-        sx={{height: "100%"}}
-      >
+    <Box onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+      <InputLabel htmlFor="input-file-upload" sx={{height: "100%"}}>
         <Button
           type="button"
           variant="outlined"
@@ -66,22 +56,32 @@ export default function DragAndDrop({handleUpload}) {
           Upload Image
         </Button>
       </InputLabel>
-      <input
+      <Box
+        component="input"
         ref={inputRef}
         type="file"
-        id="input-file-upload"
+        sx={{display: "none"}}
         multiple={false}
         onChange={handleChange}
         accept="/image/*"
       />
       {dragActive && (
-        <div
-          id="drag-file-element"
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            borderRadius: "1rem",
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+          }}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-        ></div>
+        ></Box>
       )}
     </Box>
   );

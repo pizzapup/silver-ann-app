@@ -10,13 +10,15 @@ import {addDoc, collection} from "firebase/firestore";
 import {Box, Button, Container, TextField} from "@mui/material";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TagsInput from "./TagsInput";
 
 export default function UploadImage() {
   const initialValues = {
-    name: "anon (no name provided)",
-    image: "no image provided",
-    comment: "no comment provided",
-    title: "no title provided",
+    name: "",
+    image: "",
+    comment: "",
+    title: "",
+    tags: [],
   };
   const [imgUrl, setImgUrl] = useState("");
   const [values, setValues] = useState(initialValues);
@@ -25,7 +27,9 @@ export default function UploadImage() {
     const {name, value} = e.target;
     setValues({...values, [name]: value});
   };
-
+  const handleTags = (tags) => {
+    setValues({...values, tags: tags});
+  };
   const handleUpload = (e) => {
     toast("uploading image...", {toastId: "imageToast"});
     const storageRef = sRef(storage, `/posts/${e.target.files[0].name}`);
@@ -102,6 +106,7 @@ export default function UploadImage() {
             helperText="Titles may also be used as alt text for photo captions."
             onChange={handleInputChange}
           />
+          <TagsInput handleTags={handleTags} />
           <TextField
             label="What would you like to share?"
             multiline

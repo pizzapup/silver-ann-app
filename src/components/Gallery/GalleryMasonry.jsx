@@ -1,23 +1,8 @@
 import {useState, useEffect} from "react";
-import {
-  Backdrop,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  ListItem,
-  Modal,
-  Typography,
-} from "@mui/material";
+import {Box, CircularProgress, Modal} from "@mui/material";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
-import GalleryImage from "./GalleryImage";
-import {ImageGroup} from "react-fullscreen-image";
-import {Image} from "react-fullscreen-image";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 
 export const findAll = async () => {
@@ -51,26 +36,38 @@ export default function GalleryMasonry() {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
-        <Masonry>
-          {list.map((item) => {
-            return (
-              <img
-                key={item.id}
-                alt={item.values.title ? item.values.title : "uploaded image"}
-                src={item.values.image}
-                style={{
-                  minHeight: "50px",
-                  width: "100%",
-                  display: "block",
-                }}
-                onClick={handleOpen}
-              />
-            );
-          })}
-        </Masonry>
-      </ResponsiveMasonry>
-
+      {loading ? (
+        <Box
+          sx={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size="large" />
+        </Box>
+      ) : (
+        <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
+          <Masonry>
+            {list.map((item) => {
+              return (
+                <img
+                  key={item.id}
+                  alt={item.values.title ? item.values.title : "uploaded image"}
+                  src={item.values.image}
+                  style={{
+                    minHeight: "50px",
+                    width: "100%",
+                    display: "block",
+                  }}
+                  onClick={handleOpen}
+                />
+              );
+            })}
+          </Masonry>
+        </ResponsiveMasonry>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

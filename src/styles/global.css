@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "AbstractGroovy";
+  src: url("../assets/fonts/aAbstractGroovy.otf");
+}
+:root {
+  --font-groovy: "AbstractGroovy";
+}
 body {
   --white: #ffffff;
   --tan: #f6f0e1;
@@ -37,6 +44,7 @@ body {
     #d4e3f2 69%
   );
 }
+
 body {
   background-color: #eae3d8;
   background-image: url(../assets/images/bg-tan3.png);

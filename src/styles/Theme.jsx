@@ -45,6 +45,11 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      variants: [
+        {props: {variant: "black"}, style: {backgroundColor: "black"}},
+      ],
+    },
   },
 });
 
