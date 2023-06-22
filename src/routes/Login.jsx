@@ -2,29 +2,27 @@ import {
   Avatar,
   Box,
   Button,
-  Radio,
-  CssBaseline,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  SvgIcon,
   TextField,
-  RadioGroup,
+  SpeedDial,
+  SpeedDialAction,
 } from "@mui/material";
 import {signInAnonymously} from "firebase/auth";
 import {useState} from "react";
 import {auth} from "../firebase/firebase";
-import {Face, Favorite, FavoriteBorder} from "@mui/icons-material";
-import LilMonsterOne from "../assets/icons/avatar1.svg";
 import IconAvatar from "../assets/icons/IconAvatar";
 export default function Login() {
+  const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
     uid: "",
     username: "",
     photoUrl: "",
-    icon: "monsterOne",
+    icon: 1,
   });
+  const dials = [1, 2, 3, 4];
+  const handleSpeedial = (e) => {
+    setValues({...values, icon: e});
+    setOpen(false);
+  };
   const handleInputChange = (e) => {
     const {name, value} = e.target;
     setValues({...values, [name]: value});
@@ -35,56 +33,43 @@ export default function Login() {
     console.log("submitted");
     signInAnonymously(auth)
       .then(() => {
-        console.log("signed in");
-        console.log("uid: ", auth.currentUser.uid);
-        console.log("user: ", auth.currentUser.user);
+        console.log("signed in. uid: ", auth.currentUser.uid);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error.code, error.message);
       });
   };
+
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit}>
-        <FormLabel component="legend">Avatar</FormLabel>
-        <RadioGroup
-          value={values.icon}
-          onChange={handleInputChange}
+      <Box sx={{height: 320, transform: "translateZ(0px)", flexGrow: 1}}>
+        <SpeedDial
+          ariaLabel="SpeedDial avatar selection"
+          direction="right"
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            border: "2px solid blue",
-            "& >*": {border: "1px solid pink"},
+            position: "absolute",
+            bottom: 16,
+            left: 10,
           }}
+          FabProps={{color: "lightestGrey"}}
+          icon={<IconAvatar variant={values.icon} />}
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
         >
-          <Radio
-            name="icon"
-            value="monsterOne"
-            icon={<IconAvatar variant={1} size="medium" />}
-            checkedIcon={<IconAvatar variant={1} />}
-          />
-          <Radio
-            name="icon"
-            value="monsterTwo"
-            icon={<IconAvatar variant={2} />}
-            checkedIcon={<IconAvatar variant={2} />}
-          />
-          <Radio
-            name="icon"
-            value="monsterThree"
-            icon={<IconAvatar variant={3} />}
-            checkedIcon={<IconAvatar variant={3} />}
-          />{" "}
-          <Radio
-            name="icon"
-            value="monsterFour"
-            icon={<IconAvatar variant={4} />}
-            checkedIcon={<IconAvatar variant={4} />}
-          />
-        </RadioGroup>
+          {dials.map((num) => (
+            <SpeedDialAction
+              key={`key-sd-${num}`}
+              icon={<IconAvatar variant={num} />}
+              onClick={() => handleSpeedial(num)}
+            />
+          ))}
+        </SpeedDial>
+        {/* <Button variant="outlined" size="small" onClick={() => setOpen(!open)}>
+          Choose Avatar
+        </Button> */}
+      </Box>
+      <Box component="form" onSubmit={handleSubmit}>
         <TextField
           autoComplete="off"
           name="username"

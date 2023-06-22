@@ -1,25 +1,53 @@
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 
 const theme = createTheme({
-  // palette: {
-  //   mode: "light",
-  //   primary: {
-  //     main: "#BFCFCC",
-  //   },
-  //   secondary: {
-  //     main: "#B8B6F2",
-  //     contrastText: "#000000",
-  //   },
-  //   error: {
-  //     main: "#b71c1c",
-  //   },
-  //   warning: {
-  //     main: "#ed6c02",
-  //   },
-  //   info: {
-  //     main: "#0288d1",
-  //   },
-  // },
+  palette: {
+    mode: "light",
+    // primary: {
+    //   main: "#BFCFCC",
+    // },
+    // secondary: {
+    //   main: "#B8B6F2",
+    //   contrastText: "#000000",
+    // },
+    // error: {
+    //   main: "#b71c1c",
+    // },
+    // warning: {
+    //   main: "#ed6c02",
+    // },
+    // info: {
+    //   main: "#0288d1",
+    // },
+    lightestGrey: {
+      main: "#fafafa",
+    },
+    lightGrey: {
+      main: "#E0E0E0",
+    },
+    paleGreen: {
+      main: "black",
+      contrastText: "white",
+    },
+    greenGrey: {
+      main: "#BFCFCC",
+    },
+    lavendar: {
+      main: "#B8B6F2",
+      contrastText: "#000000",
+    },
+    customRed: {
+      main: "#b71c1c",
+      contrastText: "white",
+    },
+    customOrange: {
+      main: "#ed6c02",
+    },
+    customBlue: {
+      main: "#0288d1",
+      contrastText: "white",
+    },
+  },
   typography: {
     fontFamily:
       '"Mukta Mahee", "Nunito", "Roboto", "Helvetica", "Arial", sans-serif',

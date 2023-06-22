@@ -38,7 +38,6 @@ const FaceFour = (
   </g>
 );
 const Faces = {1: FaceOne, 2: FaceTwo, 3: FaceThree, 4: FaceFour};
-
 export default function IconAvatar({
   variant = 1,
   color = "default",
