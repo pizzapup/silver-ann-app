@@ -1,18 +1,36 @@
-import {db} from "./firebase";
-import {ref as dRef, push, child, update} from "firebase/database";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import {auth, db} from "./firebase";
+import {addDoc, collection} from "firebase/firestore";
 
-export async function writeData(values, dbTarget, ...props) {
-  const postKey =
-    props.postKey && props.postKey !== "none"
-      ? props.postKey
-      : push(child(dRef(db), `${dbTarget[0]}`)).key;
-  const postData = {...values};
-  const updates = {};
-  dbTarget.map((location) => (updates[`/${location}/` + postKey] = postData));
+const registerWithEmailAndPassword = async (name, email, password) => {
   try {
-    await update(dRef(db), updates);
-    alert("Data saved successfully!" + console.table(values));
-  } catch (error) {
-    alert("The write failed...");
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
-}
+};
+const logInWithEmailAndPassword = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+const logout = () => {
+  signOut(auth);
+};
+
+export {logout, registerWithEmailAndPassword, logInWithEmailAndPassword};

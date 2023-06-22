@@ -53,3 +53,7 @@ body {
   background-position: center;
   font-family: "Mukta Mahee", sans-serif;
 }
+fieldset {
+  border-color: rgba(000, 000, 000, 0);
+  outline-color: rgba(000, 000, 000, 0);
+}

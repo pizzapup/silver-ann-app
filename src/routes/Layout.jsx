@@ -3,11 +3,11 @@ import Navbar from "../components/Navbar/Navbar";
 import {Toolbar} from "@mui/material";
 import Theme from "../styles/Theme";
 
-export default function Layout() {
+export default function Layout({activeUser}) {
   return (
     <>
       <Theme>
-        <Navbar />
+        <Navbar activeUser={activeUser} />
         <Toolbar />
         <main>
           <Outlet />

@@ -37,19 +37,21 @@ const FaceFour = (
     <path d="m44.93,78.93c24.66-.13,44.62-18.86,44.51-41.72,0-.52-.43-.95-.96-.94-.25,0-.5.11-.68.29-.19.17-19.49,20.18-42.99,20.3-23.5.12-43-19.69-43.19-19.89-.37-.37-.97-.38-1.34-.01-.19.19-.29.44-.28.71.12,22.86,20.27,41.39,44.93,41.26Zm24.45-9.12c-3.44,2.25-7.18,4.01-11.11,5.23l5.83-15.35,5.28,10.12Zm-34.9-3.18l.02-9c2.54.56,5.13.92,7.73,1.06l-7.75,7.94Zm-3.58,8.31c-3.87-1.22-7.56-2.96-10.96-5.18l5.04-9.87,5.92,15.05Z" />
   </g>
 );
+// (size = null), (color = null);
 const Faces = {1: FaceOne, 2: FaceTwo, 3: FaceThree, 4: FaceFour};
-export default function IconAvatar({
-  variant = 1,
-  color = "default",
-  rest = "default",
-}) {
-  const styles =
-    rest.sx !== "default"
-      ? color !== "default" && {color: color, ...rest.sx}
-      : color !== "default" && {color: color};
+export default function IconAvatar({variant = 1, color = null, size = null}) {
   const Face = Faces[variant];
+  const getVars =
+    size === null && color === null
+      ? null
+      : size === null && color !== null
+      ? {color: color}
+      : size !== null && color === null
+      ? {height: size, width: size}
+      : {height: size, width: size, color: color};
+
   return (
-    <SvgIcon viewBox="0 0 87.87 88.59" sx={{styles}}>
+    <SvgIcon viewBox="0 0 87.87 88.59" sx={getVars !== null ? getVars : {}}>
       {Face}
     </SvgIcon>
   );

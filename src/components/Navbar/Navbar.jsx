@@ -17,8 +17,10 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import {cloneElement, useState} from "react";
+import {signOut} from "firebase/auth";
+import {auth} from "../../firebase/firebase";
 
-export const Navbar = (props) => {
+export const Navbar = ({activeUser}, props) => {
   function ElevationScroll(props) {
     const {children} = props;
     const trigger = useScrollTrigger({
@@ -56,6 +58,19 @@ export const Navbar = (props) => {
             </ListItemButton>
           </ListItem>
         ))}
+        {activeUser === null ? (
+          <ListItem key={`login`} disablePadding>
+            <ListItemButton
+              sx={{textAlign: "center"}}
+              component={NavLink}
+              to={`/login`}
+            >
+              <ListItemText primary={`Login`} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <Button onClick={() => signOut(auth)}>Logout</Button>
+        )}
       </List>
     </Box>
   );
@@ -99,6 +114,13 @@ export const Navbar = (props) => {
                     {item.title}
                   </Button>
                 ))}
+                {activeUser === null ? (
+                  <Button key={`login`} component={NavLink} to={`/login`}>
+                    Login
+                  </Button>
+                ) : (
+                  <Button onClick={() => signOut(auth)}>Logout</Button>
+                )}
               </Box>
             </Toolbar>
           </AppBar>

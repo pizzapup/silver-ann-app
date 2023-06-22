@@ -1,3 +1,4 @@
+import {colors} from "@mui/material";
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 
 const theme = createTheme({
@@ -46,6 +47,9 @@ const theme = createTheme({
     customBlue: {
       main: "#0288d1",
       contrastText: "white",
+    },
+    pastel: {
+      main: colors.green[50],
     },
   },
   typography: {

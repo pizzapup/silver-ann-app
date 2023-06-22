@@ -9,7 +9,7 @@ export default function TimelineCard({btn = "none", data, idx}) {
       }`}
     >
       <Card
-        elevation=""
+        // elevation=""
         sx={{
           maxWidth: "600px",
           padding: "5px",
