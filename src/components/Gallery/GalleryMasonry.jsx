@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {Box, CircularProgress, Modal} from "@mui/material";
-import "react-lazy-load-image-component/src/effects/opacity.css";
+// import "react-lazy-load-image-component/src/effects/opacity.css";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";

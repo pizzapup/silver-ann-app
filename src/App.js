@@ -10,6 +10,7 @@ export const pages = [
   {title: "About", path: "about", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
   {title: "Create Post", path: "createpost", element: "CreatePost"},
+  {title: "Login", path: "login", element: "Login"},
 ];
 
 function App() {
