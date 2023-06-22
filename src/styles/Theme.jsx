@@ -59,6 +59,9 @@ const theme = createTheme({
     h1: {
       fontSize: "5.3rem",
     },
+    groovy: {
+      fontFamily: "AbstractGroovy",
+    },
   },
   components: {
     MuiTypography: {
