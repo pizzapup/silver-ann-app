@@ -17,7 +17,7 @@ const commonTags = [
   {title: "Baby"},
 ];
 
-export default function FreeSoloCreateOption({handleTags}) {
+export default function FreeSoloCreateOption({handleTags, tagsProps = {}}) {
   const [values, setValues] = useState([commonTags[0].title]);
   useEffect(() => {}, [values]);
   const handleOnChange = (e, value, reason) => {
@@ -39,6 +39,7 @@ export default function FreeSoloCreateOption({handleTags}) {
               variant="filled"
               color="primary"
               label={option}
+              {...tagsProps}
               {...getTagProps({index})}
             />
           ))
@@ -46,7 +47,12 @@ export default function FreeSoloCreateOption({handleTags}) {
         name="tags"
         onChange={handleOnChange}
         renderInput={(params) => (
-          <TextField {...params} variant="outlined" label="Tags" />
+          <TextField
+            {...params}
+            variant="outlined"
+            label="Tags"
+            {...tagsProps}
+          />
         )}
       />
     </>

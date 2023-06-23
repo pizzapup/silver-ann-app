@@ -1,6 +1,24 @@
 import {TimelineContent} from "@mui/lab";
 import {Card, CardContent, CardMedia, Typography, Box} from "@mui/material";
-
+function monthString(num) {
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  // const d = new Date();
+  let name = month[num];
+  return name;
+}
 export default function TimelineCard({btn = "none", data, idx}) {
   return (
     <TimelineContent
@@ -19,8 +37,8 @@ export default function TimelineCard({btn = "none", data, idx}) {
           <CardMedia
             component="img"
             height="200px"
-            image={data.image.src}
-            alt={data.image.alt}
+            image={data.image}
+            alt={data.caption}
           />
         )}
         <CardContent>
@@ -31,12 +49,16 @@ export default function TimelineCard({btn = "none", data, idx}) {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h6">{data.title}</Typography>
-            <Box>{data.date}</Box>
+            <Typography variant="h6" p={0.1}>
+              {data.caption}
+            </Typography>
+            <Box>
+              {monthString(data.month)} {data.day}
+            </Box>
           </Box>
 
-          {data.content ? (
-            data.content
+          {data.subcaption ? (
+            data.subcaption
           ) : (
             <Typography variant="body2" color="text.secondary">
               {data.text}
