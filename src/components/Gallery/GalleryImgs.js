@@ -4,15 +4,17 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import {ref, listAll, getDownloadURL} from "firebase/storage";
 import {CloseRounded} from "@mui/icons-material";
 import {storage} from "../../firebase/firebase";
+import GalleryPosts from "./GalleryMasonry";
+// import GalleryMasonry from "./GalleryMasonry";
 
 const fetchImages = async () => {
   const storageRef = ref(storage, "gallery");
   const result = await listAll(storageRef);
   const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
-  console.log(Promise.all(urlPromises));
+  // console.log(Promise.all(urlPromises));
   return Promise.all(urlPromises);
 };
-export default function Gallery() {
+export default function GalleryImgs() {
   const [list, setList] = useState([]);
   const [currItem, setCurrItem] = useState([]);
   const [loading, setLoading] = useState([]);
@@ -35,6 +37,7 @@ export default function Gallery() {
   const handleClose = () => setOpen(false);
   return (
     <>
+      <GalleryPosts />
       {loading ? (
         <Box
           sx={{
@@ -49,10 +52,10 @@ export default function Gallery() {
       ) : (
         <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
           <Masonry>
-            {list.map((item) => {
+            {list.map((item, i) => {
               return (
                 <img
-                  key={item.id}
+                  key={`key-${item.id}-${i}`}
                   alt="img"
                   src={item}
                   style={{

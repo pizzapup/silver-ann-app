@@ -1,9 +1,9 @@
-import GalleryMasonry from "../components/Gallery/GalleryMasonry.jsx";
+import GalleryImgs from "../components/Gallery/GalleryImgs";
 
 export default function Gallery() {
   return (
     <>
-      <GalleryMasonry />
+      <GalleryImgs />
     </>
   );
 }

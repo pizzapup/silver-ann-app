@@ -22,12 +22,14 @@ const theme = createTheme({
     // },
     lightestGrey: {
       main: "#fafafa",
+      contrastText: "#000000",
     },
     lightGrey: {
       main: "#E0E0E0",
+      contrastText: "#000000",
     },
     paleGreen: {
-      main: "black",
+      main: "#000000",
       contrastText: "white",
     },
     greenGrey: {
@@ -50,6 +52,10 @@ const theme = createTheme({
     },
     pastel: {
       main: colors.green[50],
+    },
+    rainbow: {
+      main: "var(--rainbow-gradient)",
+      contrastText: "#000000",
     },
   },
   typography: {

@@ -33,6 +33,7 @@ export default function EventDetails() {
         </Typography>
         <Timeline
           sx={{
+            mt: 3,
             [`& .${timelineOppositeContentClasses.root}`]: {
               flex: 0.2,
             },
@@ -51,7 +52,7 @@ export default function EventDetails() {
               3pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot>
+              <TimelineDot color="success">
                 <Celebration />
               </TimelineDot>
               <TimelineConnector />
@@ -77,7 +78,7 @@ export default function EventDetails() {
               4pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot>
+              <TimelineDot color="secondary">
                 <Nightlife />
               </TimelineDot>
               <TimelineConnector />
@@ -102,7 +103,7 @@ export default function EventDetails() {
               6pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot>
+              <TimelineDot color="warning">
                 <Restaurant />
               </TimelineDot>
               <TimelineConnector />
@@ -126,7 +127,7 @@ export default function EventDetails() {
               9:30pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot>
+              <TimelineDot color="error">
                 <HourglassBottom />
               </TimelineDot>
               <TimelineConnector />
@@ -150,10 +151,10 @@ export default function EventDetails() {
               10pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot>
+              <TimelineDot color="primary">
                 <ExitToApp />
               </TimelineDot>
-              <TimelineConnector />
+              {/* <TimelineConnector /> */}
             </TimelineSeparator>
             <TimelineContent>
               <Typography variant="groovy" component="span">
@@ -166,7 +167,7 @@ export default function EventDetails() {
             </TimelineContent>
           </TimelineItem>
         </Timeline>
-        <Box>
+        <Box sx={{p: 4}}>
           <Kayaking />
           <Typography variant="groovy" component="span" sx={{pl: 1}}>
             But wait, theres more..

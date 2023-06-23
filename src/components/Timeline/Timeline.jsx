@@ -153,7 +153,7 @@ const Timeline = () => {
           <div style={{clear: "both"}}></div>
         </TimeLine>
       </div>
-      <ToastContainer />
+      <ToastContainer pauseOnFocusLoss={false} autoClose={1500} />
     </div>
   );
 };

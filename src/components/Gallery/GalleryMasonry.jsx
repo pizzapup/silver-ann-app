@@ -1,9 +1,19 @@
 import {useState, useEffect} from "react";
-import {Box, CircularProgress, Modal} from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Fab,
+  Modal,
+  Typography,
+} from "@mui/material";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import Gallery from "./GalleryTwo";
+import {CloseRounded} from "@mui/icons-material";
 
 export const findAll = async () => {
   const docRefs = await getDocs(collection(db, "posts"));
@@ -14,10 +24,10 @@ export const findAll = async () => {
   return res;
 };
 
-export default function GalleryMasonry() {
+export default function GalleryPosts() {
   const [list, setList] = useState([]);
   const [currItem, setCurrItem] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
   const fetchData = async () => {
     setLoading(true);
     const res = await findAll();
@@ -29,15 +39,14 @@ export default function GalleryMasonry() {
   }, []);
   const columnsCountBreakPoints = {350: 1, 750: 2, 900: 3};
   const [open, setOpen] = useState(false);
-  const handleOpen = (e) => {
+  const handleOpen = (data) => {
     setOpen(true);
-    setCurrItem(e.target.src);
+    setCurrItem(data);
   };
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Gallery />
-      {/* {loading ? (
+      {loading ? (
         <Box
           sx={{
             height: "100vh",
@@ -51,19 +60,11 @@ export default function GalleryMasonry() {
       ) : (
         <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
           <Masonry>
-            {list.map((item) => {
+            {list.map((item, i) => {
               return (
-                <img
-                  key={item.id}
-                  alt={item.values.title ? item.values.title : "uploaded image"}
-                  src={item.values.image}
-                  style={{
-                    minHeight: "50px",
-                    width: "100%",
-                    display: "block",
-                  }}
-                  onClick={handleOpen}
-                />
+                <Box key={`key-${item.id}-${i}`} m={0.25}>
+                  <PostCard handleOpen={handleOpen} item={item} i={i} />
+                </Box>
               );
             })}
           </Masonry>
@@ -84,17 +85,70 @@ export default function GalleryMasonry() {
             },
           }}
         >
-          <img
-            key={currItem.id}
-            alt=""
-            src={currItem}
-            style={{
-              width: "100%",
-              backgroundColor: "rgba(255,255,255,0.9)",
-            }}
-          />
+          <Fab
+            size="small"
+            onClick={() => setOpen(false)}
+            sx={{position: "fixed", top: 5, left: 5}}
+          >
+            <CloseRounded />
+          </Fab>
+          {console.log(currItem)}
+          <PostCardEnlarged item={currItem} />
         </Box>
-      </Modal> */}
+      </Modal>
     </>
+  );
+}
+export function PostCardInner({item}) {
+  return (
+    <>
+      <CardMedia
+        component="img"
+        sx={{
+          width: "100%",
+          display: "block",
+          backgroundColor: "rgba(255,255,255,0.9)",
+        }}
+        image={item.values.image}
+      />
+      <CardContent
+        sx={{
+          background:
+            "linear-gradient(135deg,rgba(219, 188, 246, 0.1) 0%,rgba(237, 215, 252, 0.1) 24%,rgba(238, 223, 225, 0.1) 51%,rgba(238, 226, 214, 0.1) 62%,rgba(211, 226, 241, 0.1) 69%,rgba(211, 226, 241, 0.1) 100%)",
+        }}
+      >
+        <Typography variant="caption">
+          {item.values.name !== "" && item.values.name}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.values.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {item.values.comment}
+        </Typography>
+      </CardContent>
+    </>
+  );
+}
+export function PostCard({handleOpen, item, i}) {
+  return (
+    <Card key={`key-${item.id}-${i}`}>
+      <CardActionArea onClick={() => handleOpen(item)}>
+        <PostCardInner item={item} />
+      </CardActionArea>
+    </Card>
+  );
+}
+export function PostCardEnlarged({item}) {
+  return (
+    <Card
+      sx={{
+        minHeight: "50px",
+        width: "100%",
+        display: "block",
+      }}
+    >
+      <PostCardInner item={item} />
+    </Card>
   );
 }
