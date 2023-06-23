@@ -21,7 +21,9 @@ import {db, storage} from "../../firebase/firebase";
 import {DateField, DatePicker} from "@mui/x-date-pickers";
 import DragAndDrop from "../UploadImg/DragAndDrop";
 import TagsInput from "../UploadImg/TagsInput";
-import {CloseRounded} from "@mui/icons-material";
+import {CloseRounded, Event} from "@mui/icons-material";
+import {ToastContainer, toast} from "react-toastify";
+import {LoadingButton} from "@mui/lab";
 
 const initialValues = {
   image: "",
@@ -34,6 +36,8 @@ const initialValues = {
 
 export default function AddTimeline({activeUser, setOpen}) {
   const [values, setValues] = useState(initialValues);
+  const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [checked, setChecked] = useState(false);
   const [imgUrl, setImgUrl] = useState("");
   const [date, setDate] = useState("");
@@ -45,25 +49,31 @@ export default function AddTimeline({activeUser, setOpen}) {
     const {name, value} = e.target;
     setValues({...values, [name]: value});
   };
-  const handleTags = (tags) => {
-    setValues({...values, tags: tags});
-  };
+  // const handleTags = (tags) => {
+  //   setValues({...values, tags: tags});
+  // };
   const handleUpload = (e) => {
+    toast("uploading image...", {toastId: "imageToast"});
     const storageRef = sRef(
       storage,
       `/timelineUserUploads/${e.target.files[0].name}`
     );
     const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);
+    setUploading(true);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
       (error) => {
         alert(error);
+        setUploading(false);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgUrl(downloadURL);
           setValues({...values, image: downloadURL});
+          toast.update("imageToast", "Image uploaded!");
+          toast.dismiss("imageToast");
+          setUploading(false);
         });
       }
     );
@@ -86,15 +96,18 @@ export default function AddTimeline({activeUser, setOpen}) {
       });
     }
   }, [date, checked]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
       await addDoc(collection(db, "timeline"), values);
+      setValues(initialValues);
+      setSubmitting(false);
+      toast.success("Timeline event created!").then(setOpen());
     } catch (error) {
       console.error(error);
+      setSubmitting(false);
     }
-    setValues(initialValues);
   };
 
   return (
@@ -144,7 +157,7 @@ export default function AddTimeline({activeUser, setOpen}) {
               flex: "2",
             }}
           >
-            <DragAndDrop handleUpload={handleUpload} />
+            <DragAndDrop handleUpload={handleUpload} loading={uploading} />
           </Box>
           <Box
             sx={{
@@ -198,25 +211,47 @@ export default function AddTimeline({activeUser, setOpen}) {
               <FormHelperText>Check to only input the year</FormHelperText>
             </Box>
           </Box>
-          <TagsInput handleTags={handleTags} tagsProps={{size: "small"}} />
 
-          <TextField
-            label="Sub-caption"
-            multiline
-            rows={1}
-            value={values.caption}
-            name="caption"
-            onChange={handleInputChange}
-            helperText="Optional extra text that displays below the main caption. Comments, your name, etc."
-          />
-          <Button
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "baseline",
+              gap: 1,
+            }}
+          >
+            {/* <TagsInput handleTags={handleTags} /> */}
+            <TextField
+              label="Sub-caption"
+              multiline
+              rows={1}
+              sx={{flex: 1}}
+              value={values.subcaption}
+              name="subcaption"
+              onChange={handleInputChange}
+              helperText="Optional extra text that displays below the main caption"
+            />
+            <TextField
+              label="your name"
+              value={values.name}
+              // size="small"
+              name="name"
+              sx={{maxWidth: 140}}
+              onChange={handleInputChange}
+              // helperText=""
+            />
+          </Box>
+          <LoadingButton
             type="submit"
             variant="contained"
             size="large"
             sx={{backgroundColor: "black"}}
+            disabled={uploading}
+            loading={submitting}
+            loadingPosition="start"
+            startIcon={<Event />}
           >
             Submit
-          </Button>
+          </LoadingButton>
         </Container>
       </form>
     </Box>

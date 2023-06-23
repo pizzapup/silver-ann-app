@@ -1,10 +1,10 @@
-import {PhotoCamera} from "@mui/icons-material";
+import {Event, PhotoCamera} from "@mui/icons-material";
 import {useRef, useState} from "react";
 import {Box, Button, InputLabel} from "@mui/material";
+import {LoadingButton} from "@mui/lab";
 
-export default function DragAndDrop({handleUpload}) {
+export default function DragAndDrop({handleUpload, loading = false}) {
   const [dragActive, setDragActive] = useState(false);
-
   const inputRef = useRef(null);
 
   const handleDrag = function (e) {
@@ -39,7 +39,11 @@ export default function DragAndDrop({handleUpload}) {
   return (
     <Box onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
       <InputLabel htmlFor="input-file-upload" sx={{height: "100%"}}>
-        <Button
+        <LoadingButton
+          disabled={loading}
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<PhotoCamera />}
           type="button"
           variant="outlined"
           size="large"
@@ -52,9 +56,9 @@ export default function DragAndDrop({handleUpload}) {
           }}
           onClick={onButtonClick}
         >
-          <PhotoCamera />
+          {/* <PhotoCamera /> */}
           Upload Image
-        </Button>
+        </LoadingButton>
       </InputLabel>
       <Box
         component="input"

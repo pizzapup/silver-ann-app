@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {gsap} from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {
-  LocalizationProvider,
-  Timeline as TimeLine,
-  timelineItemClasses,
-} from "@mui/lab";
-import {items} from "./data";
+import {Timeline as TimeLine, timelineItemClasses} from "@mui/lab";
 import TimelineItem from "./TimelineItem";
 import {Box, Fab, Modal, Typography} from "@mui/material";
 import {EditCalendar} from "@mui/icons-material";
 import AddTimeline from "./AddTimeline";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
+import {ToastContainer} from "react-toastify";
 
 const Timeline = () => {
   const [open, setOpen] = useState(false);
@@ -157,6 +153,7 @@ const Timeline = () => {
           <div style={{clear: "both"}}></div>
         </TimeLine>
       </div>
+      <ToastContainer />
     </div>
   );
 };
