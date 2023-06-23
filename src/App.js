@@ -12,7 +12,7 @@ const Error = lazy(() => import("./routes/Error"));
 export const pages = [
   {title: "Home", path: "home", element: "Home"},
   {title: "Event Details", path: "details", element: "EventDetails"},
-  {title: "About", path: "about", element: "About"},
+  {title: "Relationship Timeline", path: "timeline", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
   {title: "Create Post", path: "createpost", element: "CreatePost"},
   // {title: "Login", path: "login", element: "Login"},
@@ -37,7 +37,11 @@ function App() {
       <Route
         key={`page-${i}`}
         path={page.path}
-        element={<Suspense fallback={<>...</>}>{<Component />}</Suspense>}
+        element={
+          <Suspense fallback={<>...</>}>
+            {<Component activeUser={activeUser} />}
+          </Suspense>
+        }
       />
     );
   });

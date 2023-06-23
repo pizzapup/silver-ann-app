@@ -7,14 +7,14 @@ import {
 import {db, storage} from "../../firebase/firebase";
 import DragAndDrop from "./DragAndDrop";
 import {addDoc, collection} from "firebase/firestore";
-import {Box, Button, Container, TextField} from "@mui/material";
+import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TagsInput from "./TagsInput";
 
-export default function UploadImage() {
+export default function UploadImage({activeUser}) {
   const initialValues = {
-    name: "",
+    name: activeUser !== null ? activeUser : "",
     image: "",
     comment: "",
     title: "",
@@ -72,6 +72,15 @@ export default function UploadImage() {
 
   return (
     <Box className="form-container" pt={2} pb={2}>
+      <Typography
+        variant="h4"
+        mb={1}
+        textAlign="center"
+        textTransform="uppercase"
+        fontFamily="var(--font-groovy)"
+      >
+        Create new post
+      </Typography>
       <form onSubmit={handleSubmit} style={{}}>
         <Container
           sx={{
@@ -98,15 +107,14 @@ export default function UploadImage() {
           >
             <DragAndDrop handleUpload={handleUpload} />
           </Box>
-          <TextField
+          {/* <TextField
             label="Title"
             value={values.title}
             name="title"
             type="text"
             helperText="Titles may also be used as alt text for photo captions."
             onChange={handleInputChange}
-          />
-          <TagsInput handleTags={handleTags} />
+          /> */}
           <TextField
             label="What would you like to share?"
             multiline
@@ -115,6 +123,7 @@ export default function UploadImage() {
             name="comment"
             onChange={handleInputChange}
           />
+          <TagsInput handleTags={handleTags} />
           <TextField
             label="Your Name (optional)"
             value={values.name}
