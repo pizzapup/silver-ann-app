@@ -1,31 +1,30 @@
 import {useState, useEffect} from "react";
-import {Box, CircularProgress, Modal} from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../firebase/firebase";
+import {Box, CircularProgress, Fab, Modal} from "@mui/material";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import Gallery from "./GalleryTwo";
+import {ref, listAll, getDownloadURL} from "firebase/storage";
+import {CloseRounded} from "@mui/icons-material";
+import {storage} from "../../firebase/firebase";
 
-export const findAll = async () => {
-  const docRefs = await getDocs(collection(db, "posts"));
-  const res = [];
-  docRefs.forEach((post) => {
-    res.push({id: post.id, ...post.data()});
-  });
-  return res;
+const fetchImages = async () => {
+  const storageRef = ref(storage, "gallery");
+  const result = await listAll(storageRef);
+  const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
+  console.log(Promise.all(urlPromises));
+  return Promise.all(urlPromises);
 };
-
-export default function GalleryMasonry() {
+export default function Gallery() {
   const [list, setList] = useState([]);
   const [currItem, setCurrItem] = useState([]);
   const [loading, setLoading] = useState([]);
   const fetchData = async () => {
     setLoading(true);
-    const res = await findAll();
+    const res = await fetchImages();
     setList([...res]);
     setLoading(false);
   };
   useEffect(() => {
     fetchData();
+    fetchImages();
   }, []);
   const columnsCountBreakPoints = {350: 1, 750: 2, 900: 3};
   const [open, setOpen] = useState(false);
@@ -36,8 +35,7 @@ export default function GalleryMasonry() {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <Gallery />
-      {/* {loading ? (
+      {loading ? (
         <Box
           sx={{
             height: "100vh",
@@ -55,8 +53,8 @@ export default function GalleryMasonry() {
               return (
                 <img
                   key={item.id}
-                  alt={item.values.title ? item.values.title : "uploaded image"}
-                  src={item.values.image}
+                  alt="img"
+                  src={item}
                   style={{
                     minHeight: "50px",
                     width: "100%",
@@ -84,6 +82,13 @@ export default function GalleryMasonry() {
             },
           }}
         >
+          <Fab
+            size="small"
+            onClick={() => setOpen(false)}
+            sx={{position: "fixed", top: 5, left: 5}}
+          >
+            <CloseRounded />
+          </Fab>
           <img
             key={currItem.id}
             alt=""
@@ -94,7 +99,7 @@ export default function GalleryMasonry() {
             }}
           />
         </Box>
-      </Modal> */}
+      </Modal>
     </>
   );
 }

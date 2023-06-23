@@ -11,10 +11,10 @@ const Home = lazy(() => import("./routes/Home"));
 const Error = lazy(() => import("./routes/Error"));
 export const pages = [
   {title: "Home", path: "home", element: "Home"},
+  {title: "Event Details", path: "details", element: "EventDetails"},
   {title: "About", path: "about", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
   {title: "Create Post", path: "createpost", element: "CreatePost"},
-  {title: "Event Details", path: "details", element: "EventDetails"},
   // {title: "Login", path: "login", element: "Login"},
 ];
 function App() {

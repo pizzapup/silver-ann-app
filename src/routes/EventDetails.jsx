@@ -1,4 +1,12 @@
 import {
+  Celebration,
+  ExitToApp,
+  HourglassBottom,
+  Kayaking,
+  Nightlife,
+  Restaurant,
+} from "@mui/icons-material";
+import {
   Timeline,
   TimelineConnector,
   TimelineContent,
@@ -15,7 +23,12 @@ export default function EventDetails() {
   return (
     <>
       <Box>
-        <Typography variant="h4">
+        <Typography
+          variant="h4"
+          fontFamily="var(--font-groovy)"
+          // fontWeight="bolder"
+          textAlign="center"
+        >
           Matt & Erin's Silver Anniversary Party
         </Typography>
         <Timeline
@@ -38,7 +51,9 @@ export default function EventDetails() {
               3pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot />
+              <TimelineDot>
+                <Celebration />
+              </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
@@ -62,7 +77,9 @@ export default function EventDetails() {
               4pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot />
+              <TimelineDot>
+                <Nightlife />
+              </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
@@ -85,7 +102,9 @@ export default function EventDetails() {
               6pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot />
+              <TimelineDot>
+                <Restaurant />
+              </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
@@ -107,7 +126,9 @@ export default function EventDetails() {
               9:30pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot />
+              <TimelineDot>
+                <HourglassBottom />
+              </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
@@ -129,7 +150,9 @@ export default function EventDetails() {
               10pm
             </TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot />
+              <TimelineDot>
+                <ExitToApp />
+              </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
@@ -144,7 +167,8 @@ export default function EventDetails() {
           </TimelineItem>
         </Timeline>
         <Box>
-          <Typography variant="groovy" component="span">
+          <Kayaking />
+          <Typography variant="groovy" component="span" sx={{pl: 1}}>
             But wait, theres more..
           </Typography>
           <br />
