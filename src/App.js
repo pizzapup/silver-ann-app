@@ -15,6 +15,7 @@ export const pages = [
   {title: "Relationship Timeline", path: "timeline", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
   {title: "Create Post", path: "createpost", element: "CreatePost"},
+  {title: "Guestbook", path: "guestbook", element: "Guestbook"},
   // {title: "Quiz", path: "quiz", element: "Quiz"},
   // {title: "Login", path: "login", element: "Login"},
 ];
