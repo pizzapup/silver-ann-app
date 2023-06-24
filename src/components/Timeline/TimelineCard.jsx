@@ -2,6 +2,7 @@ import {TimelineContent} from "@mui/lab";
 import {Card, CardContent, CardMedia, Typography, Box} from "@mui/material";
 function monthString(num) {
   const month = [
+    "",
     "January",
     "February",
     "March",
