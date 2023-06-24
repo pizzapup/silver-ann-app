@@ -11,10 +11,12 @@ import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TagsInput from "./TagsInput";
+import {Link} from "react-router-dom";
+import zIndex from "@mui/material/styles/zIndex";
 
-export default function UploadImage({activeUser}) {
+export default function UploadImage({setCreatePostOpen}) {
   const initialValues = {
-    name: activeUser !== null ? activeUser : "",
+    name: "",
     image: "",
     comment: "",
     title: "",
@@ -38,7 +40,7 @@ export default function UploadImage({activeUser}) {
       "state_changed",
       (snapshot) => {},
       (error) => {
-        alert(error);
+        // alert(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -49,7 +51,11 @@ export default function UploadImage({activeUser}) {
       }
     );
   };
-
+  const SuccessToast = ({closeToast, toastProps}) => (
+    <>
+      Post successful! Check it out in the <Link to="/gallery">Gallery</Link>
+    </>
+  );
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -59,19 +65,27 @@ export default function UploadImage({activeUser}) {
         }),
         {
           pending: "post is pending",
-          success: "Post successful",
-          error: "uh oh, something went wrong 🤯",
+          success: "Post successful!",
+          // error: "uh oh, something went wrong 🤯",
         }
       );
       console.log("added!");
     } catch (error) {
       console.error(error);
     }
-    setValues(initialValues);
+    setCreatePostOpen();
   };
 
   return (
-    <Box className="form-container" pt={2} pb={2}>
+    <Box className="form-container" pt={2} pb={2} sx={{position: "relative"}}>
+      <Box sx={{textAlign: "center"}}>
+        <Typography p={0} m={0} variant="button" textAlign="center">
+          Posts are displayed in the
+        </Typography>
+        <Button component={Link} p={0} m={0}>
+          Gallery
+        </Button>
+      </Box>
       <Typography
         variant="h4"
         mb={1}
@@ -107,14 +121,7 @@ export default function UploadImage({activeUser}) {
           >
             <DragAndDrop handleUpload={handleUpload} />
           </Box>
-          {/* <TextField
-            label="Title"
-            value={values.title}
-            name="title"
-            type="text"
-            helperText="Titles may also be used as alt text for photo captions."
-            onChange={handleInputChange}
-          /> */}
+
           <TextField
             label="What would you like to share?"
             multiline
@@ -129,7 +136,6 @@ export default function UploadImage({activeUser}) {
             value={values.name}
             name="name"
             type="text"
-            helperText=""
             onChange={handleInputChange}
           />
           <Button

@@ -14,11 +14,22 @@ import {auth, db} from "../firebase/firebase";
 import IconAvatar from "../assets/icons/IconAvatar";
 import {colors} from "@mui/material";
 import {NavigateNextRounded, WaterDrop} from "@mui/icons-material";
-import {doc, setDoc} from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import {ToastContainer, toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {UserContext} from "../firebase/UserContextProvider";
 
-export default function Login({activeUser}) {
+export default function Login() {
+  const user = useContext(UserContext);
   const initialValues = {
     username: "",
     displayName: "",
@@ -28,7 +39,6 @@ export default function Login({activeUser}) {
     iconColor: colors.cyan[50],
     uid: "",
   };
-  const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
   const [open, setOpen] = useState(false);
   const dials = [1, 2, 3, 4];
@@ -54,25 +64,14 @@ export default function Login({activeUser}) {
       setValues({...values, [name]: value});
     }
   };
-  useEffect(() => {
-    if (activeUser === null) {
-      console.log("signin");
-    } else {
-      console.log("already signed in");
-      navigate("/");
-    }
-  }, []);
-
-  const createUser = (e) => {
-    e.preventDefault();
+  const createUser = async () => {
     setValues({
       ...values,
       username: values.username,
       email: `${values.username}@someFakeEmailExtension123.com`,
       displayName: values.username,
     });
-    const em = values.email;
-    createUserWithEmailAndPassword(auth, em, values.password)
+    createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         const user = userCredential.user;
         setValues({...values, uid: user.uid, displayName: values.username});
@@ -83,13 +82,50 @@ export default function Login({activeUser}) {
           auth.currentUser.uid,
           auth.currentUser
         );
-        toast(`Woohoo! Hello, ${activeUser.displayName}`);
+        toast(`Woohoo! Hello, ${user["displayName"]}`);
       })
       .catch((error) => {
         console.log("error creating user: ", error);
         toast("hmmm, looks like something went wrong.");
       });
   };
+  // useEffect(() => {
+  //   if (user === null) {
+  //     // console.log("signin");
+  //   } else {
+  //     console.log("already signed in ", user["displayName"]);
+  //     // navigate("/");
+  //   }
+  // }, []);
+
+  const [exists, setExists] = useState(null);
+  const checkIfUserExists = async () => {
+    const found = [];
+    const q = query(
+      collection(db, "users"),
+      where("displayName", "==", values.username)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      found.push(["doc", doc.id]);
+      setExists(doc.id);
+    });
+    const userExists = exists === null ? false : true;
+    return userExists;
+  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (user === null) {
+      //check if user exists
+      //if user exists --> sign in
+      // else --> create new user
+      const userExists = checkIfUserExists();
+      console.log(userExists);
+    } else {
+      console.log("already signed in ", user["displayName"]);
+      // navigate("/");
+    }
+  }
 
   return (
     <>
@@ -101,7 +137,7 @@ export default function Login({activeUser}) {
 
       <Box
         component="form"
-        onSubmit={createUser}
+        onSubmit={handleSubmit}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -221,8 +257,6 @@ export default function Login({activeUser}) {
             label="Your Name"
             variant="outlined"
             value={values.username}
-            // placeholder="name"
-            // helperText="This will be used as your display name for any games & posts you decide to partake in"
             onChange={handleInputChange}
           />
           <Button
@@ -236,7 +270,7 @@ export default function Login({activeUser}) {
           </Button>
         </Stack>
       </Box>
-      <ToastContainer />
+      <ToastContainer pauseOnFocusLoss={false} autoClose={1500} />
     </>
   );
 }

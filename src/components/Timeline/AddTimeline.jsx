@@ -90,7 +90,7 @@ export default function AddTimeline({activeUser, setOpen}) {
     } else {
       setValues({
         ...values,
-        month: date.$M + 1,
+        month: date.$M,
         day: date.$D,
         year: year,
       });

@@ -16,11 +16,19 @@ import {
   ListItemText,
   useScrollTrigger,
 } from "@mui/material";
-import {cloneElement, useState} from "react";
+import {cloneElement, useContext, useEffect, useState} from "react";
 import {signOut} from "firebase/auth";
 import {auth} from "../../firebase/firebase";
+import {UserContext} from "../../firebase/UserContextProvider";
 
-export const Navbar = ({activeUser}, props) => {
+export const Navbar = (props) => {
+  const currUser = useContext(UserContext);
+  // useEffect(() => {
+  //   currUser
+  //     ? console.log(currUser["displayName"])
+  //     : console.log("not signed in");
+  // }, [currUser]);
+
   function ElevationScroll(props) {
     const {children} = props;
     const trigger = useScrollTrigger({
@@ -58,7 +66,7 @@ export const Navbar = ({activeUser}, props) => {
             </ListItemButton>
           </ListItem>
         ))}
-        {activeUser === null ? (
+        {/* {currUser === null ? (
           <ListItem key={`login`} disablePadding>
             <ListItemButton
               sx={{textAlign: "center"}}
@@ -70,7 +78,7 @@ export const Navbar = ({activeUser}, props) => {
           </ListItem>
         ) : (
           <Button onClick={() => signOut(auth)}>Logout</Button>
-        )}
+        )} */}
       </List>
     </Box>
   );
@@ -114,13 +122,13 @@ export const Navbar = ({activeUser}, props) => {
                     {item.title}
                   </Button>
                 ))}
-                {activeUser === null ? (
+                {/* {currUser === null ? (
                   <Button key={`login`} component={NavLink} to={`/login`}>
                     Login
                   </Button>
                 ) : (
                   <Button onClick={() => signOut(auth)}>Logout</Button>
-                )}
+                )} */}
               </Box>
             </Toolbar>
           </AppBar>

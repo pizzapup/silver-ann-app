@@ -15,33 +15,17 @@ export const pages = [
   {title: "Relationship Timeline", path: "timeline", element: "About"},
   {title: "Gallery", path: "gallery", element: "Gallery"},
   {title: "Create Post", path: "createpost", element: "CreatePost"},
+  // {title: "Quiz", path: "quiz", element: "Quiz"},
   // {title: "Login", path: "login", element: "Login"},
 ];
 function App() {
-  const [activeUser, setActiveUser] = useState(null);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setActiveUser({displayName: user.displayName, uid: user.uid});
-        // console.log(user.displayName);
-      } else {
-        // console.log("signed out");
-        setActiveUser(null);
-      }
-    });
-  }, []);
   const Pages = pages.map((page, i) => {
     const Component = lazy(() => import(`./routes/${page.element}`));
     return (
       <Route
         key={`page-${i}`}
         path={page.path}
-        element={
-          <Suspense fallback={<>...</>}>
-            {<Component activeUser={activeUser} />}
-          </Suspense>
-        }
+        element={<Suspense fallback={<>...</>}>{<Component />}</Suspense>}
       />
     );
   });
@@ -49,7 +33,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout activeUser={activeUser} />}>
+        <Route path="/" element={<Layout />}>
           <Route
             index
             element={
@@ -62,11 +46,7 @@ function App() {
           <Route
             key={`page-login`}
             path="/login"
-            element={
-              <Suspense fallback={<>...</>}>
-                {<Login activeUser={activeUser} />}
-              </Suspense>
-            }
+            element={<Suspense fallback={<>...</>}>{<Login />}</Suspense>}
           />
         </Route>
 
