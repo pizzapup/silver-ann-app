@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Silver Anniversary App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Created for a 25th wedding anniversary celebration. Attendees can sign the guestbook, upload photos, post to the gallery (text and photo -- cards are created for text posts), add events to a timeline, and more.
 
-## Available Scripts
+All graphics (other than a few MUI icons) created specifically for the celebration. 
 
-In the project directory, you can run:
+<img src="./preview-imgs/homeDesktop.png" alt="mobile nav menu in closed state" width="100%"  />
 
-### `npm start`
+## Features
+-  Custom logos & icons
+- Photo gallery & message board
+   - Ability to create new post and optionally upload photos
+- Timeline
+   - Ability to add new timeline event (option to add event with year only)
+ 
+## Built with
+- React.js
+- MUI
+- Firebase (firestore, storage, auth)
+- Vercel (hosting)
+- gsap (animation)
+- responsive
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Custom Logo Designs:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| MAIN | MTNS-0VAL | MTNS | BUS |
+| ---|---|---|---|
+|<img src="./preview-imgs/logo0.PNG" alt="logo0" width="70px"/>|<img src="./preview-imgs/logo1.PNG" alt="logo1" width="70px"/>|<img src="./preview-imgs/logo2.PNG" alt="logo2" width="70px"/>|<img src="./preview-imgs/logo3.PNG" alt="logo3" width="70px"/>|
 
-### `npm test`
+## Pages: 
+- Home
+- Guestbook
+- Gallery
+- Timeline
+  - Add new timeline event
+- Event Details
+- Create post
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Mobile Nav Menu
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| CLOSED | OPEN | 
+| --- | --- |
+| <img src="./preview-imgs/home.png" alt="mobile nav menu in closed state" width="250px"/> | <img src="./preview-imgs/mobileNav.png" alt="mobile nav menu when drawer is open" width="250px"/> |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Nav scrolling
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| TOP OF PAGE | SCROLLING | 
+| --- | --- |
+| <img src="./preview-imgs/home.png" alt="nav when page is at top/not scrolled" width="250px"/> | <img src="./preview-imgs/navScroll.jpeg" alt="nav when page is scrolled/not at top" width="250px"/> |
 
-### `npm run eject`
+Nav appears to 'hover' when page is scrolled. returns to 'flat' when back at top
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Responsive
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Home on desktop | Home on mobile | 
+| --- | --- |
+| <img src="./preview-imgs/homeDesktop.png" alt="home on desktop" width="250px"/> | <img src="./preview-imgs/home.png" alt="home on mobile" width="250px"/> |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Timeline & Add Event Form
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Timeline | Add Event | 
+| --- | --- |
+| <img src="./preview-imgs/timeline.png" alt="timeline" width="250px"/> | <img src="./preview-imgs/timelineEvent.png" alt="add event to timeline form" width="250px"/> |
